@@ -15,27 +15,35 @@ const profileQuestions = {
   superpower: `What is your superpower? In a few words, tell us what you are amazing at! `,
 };
 
-const profileGenerator = {};
+function weGotName(nameStr) {
+  profile.name = nameStr;
+  rl.question(`${profileQuestions.hobby}`, weGotHobby);
+}
+function weGoHobby(hobbyStr) {
+  profile.hobby = hobbyStr;
+  rl.question(`${profileQuestions.music}`, weGotMusic);
+}
+function weGotMusic(musicStr) {
+  profile.music = musicStr;
+  rl.question(`${profileQuestions.food}`, weGotFood);
+}
 
-rl.question(`${profileQuestions.name}`, (name) => {
-  profile.name = name;
-  rl.question(`${profileQuestions.hobby}`, (hobby) => {
-    profile.hobby = hobby;
-    rl.question(`${profileQuestions.music}`, (music) => {
-      profile.music = music;
-      rl.question(`${profileQuestions.food}`, (food) => {
-        profile.food = food;
-        rl.question(`${profileQuestions.sport}`, (sport) => {
-          profile.sport = sport;
-          rl.question(`${profileQuestions.superpower}`, (superpower) => {
-            profile.superpower = superpower;
-            rl.close();
+function weGotFood(foodStr) {
+  profile.food = food;
+  rl.question(`${profileQuestions.sport}`, weGotSport);
+}
 
-            console.log(`My name is ${name}, I like ${hobby} and listening to ${music}. My favourite food is ${food}. 
+function weGotSport(sportStr) {
+  profile.sport = sport;
+  rl.question(`${profileQuestions.superpower}`, weGotSuperpower);
+}
+
+function weGotSuperpower(superpowerStr) {
+  profile.superpower = superpower;
+  rl.close();
+
+  console.log(`My name is ${name}, I like ${hobby} and listening to ${music}. My favourite food is ${food}. 
                 My favourite sport is ${sport} and my superpower is ${superpower}. Nice to meet you!`);
-          });
-        });
-      });
-    });
-  });
-});
+}
+
+rl.question(`${profileQuestions.name}`, weGotName);
